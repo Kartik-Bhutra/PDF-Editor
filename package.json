@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "electron:dev": "vite dev && electron electron/dev.ts",
     "build": "tsc && vite build",
+    "electron:build": "vite build && electron electron/build.ts",
     "preview": "vite preview",
     "prepare": "husky",
     "lint": "eslint .",
@@ -20,6 +22,7 @@
   "devDependencies": {
     "@eslint/css": "^0.10.0",
     "@eslint/js": "^9.34.0",
+    "electron": "^37.3.1",
     "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^16.3.0",
