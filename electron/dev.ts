@@ -1,18 +1,15 @@
 import { app, BrowserWindow } from "electron";
 
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-  });
-
-  win.loadURL("http://localhost:5173/");
-}
+app.disableHardwareAcceleration();
 
 app.whenReady().then(() => {
-  createWindow();
-});
+  const win = new BrowserWindow({
+    title: "Main window",
+  });
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
+  if (process.env.VITE_DEV_SERVER_URL) {
+    win.loadURL(process.env.VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile("dist/index.html");
+  }
 });

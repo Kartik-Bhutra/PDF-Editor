@@ -3,11 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "dist-electron/dev.js",
   "scripts": {
     "dev": "vite",
-    "electron:dev": "vite dev && electron electron/dev.ts",
-    "build": "tsc && vite build",
-    "electron:build": "vite build && electron electron/build.ts",
+    "build": "eslint . && tsc && vite build && electron electron/build.ts",
     "preview": "vite preview",
     "prepare": "husky",
     "lint": "eslint .",
@@ -31,6 +30,7 @@
     "prettier": "^3.6.2",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.40.0",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "vite-plugin-electron": "^0.29.0"
   }
 }
