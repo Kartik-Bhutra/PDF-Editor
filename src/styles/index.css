@@ -1,0 +1,385 @@
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-secondary: #10b981;
+  --color-secondary-hover: #059669;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-text-light: #6b7280;
+  --color-bg-light: #f8f9fa;
+  --color-bg-medium: #f3f4f6;
+  --color-bg-white: #ffffff;
+  --color-border: #e5e7eb;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --border-radius: 0.5rem;
+}
+
+/* --- Basic Reset & Global Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  /* Fix: Removed the '!important' flag to resolve the 'css/no-important' error. */
+  display: none;
+}
+
+/* --- Main Layout --- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content-area {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* --- Header & Toolbar --- */
+.toolbar-header {
+  background-color: var(--color-bg-white);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.toolbar-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+#editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tool-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.5rem;
+  border-right: 1px solid var(--color-border);
+}
+.tool-group:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+/* --- Buttons --- */
+.btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition:
+    background-color 0.2s ease-in-out,
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:focus-visible,
+.tool-btn:focus-visible {
+  /* Fix: Replaced 'outline' with 'box-shadow' to resolve the 'css/use-baseline' error while keeping the accessible focus indicator. */
+  box-shadow: 0 0 0 2px var(--color-primary);
+  outline-offset: 2px; /* This property can be kept or removed; it only works with outline. */
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-bg-white);
+}
+.btn-secondary:hover {
+  background-color: var(--color-secondary-hover);
+  transform: translateY(-1px);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.tool-btn {
+  background-color: transparent;
+  padding: 0.6rem;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease-in-out;
+}
+.tool-btn:hover {
+  background-color: var(--color-bg-medium);
+}
+.tool-btn.active {
+  background-color: var(--color-primary);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.tool-btn svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-text-secondary);
+}
+.tool-btn.active svg {
+  color: var(--color-bg-white);
+}
+
+/* --- Styles for the text formatting toolbar and its controls. --- */
+#text-format-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.format-control {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 0.4rem 0.6rem;
+  background-color: var(--color-bg-white);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 0.875rem;
+}
+.format-control:focus {
+  /* Fix: Removed 'outline: none' to resolve the 'css/use-baseline' error. The box-shadow rule below provides a better focus indicator. */
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+#font-family-select {
+  width: 120px;
+}
+#font-size-input {
+  width: 60px;
+}
+/* Style for the color input */
+#text-color-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+#text-color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: var(--border-radius);
+}
+#text-color-input::-webkit-color-swatch {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+/* --- Sidebar --- */
+#sidebar {
+  width: 250px;
+  background-color: var(--color-bg-white);
+  border-right: 1px solid var(--color-border);
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* --- Main Content Area --- */
+#main-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow: auto;
+  background-color: var(--color-bg-medium);
+}
+
+/* --- New Upload Prompt --- */
+#upload-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+#upload-prompt h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+#upload-prompt .subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-light);
+  max-width: 450px;
+  margin: 1rem 0 2rem 0;
+  line-height: 1.6;
+}
+#upload-prompt .btn-primary {
+  padding: 0.8rem 2rem;
+  font-size: 1.125rem;
+}
+#upload-prompt .drop-text {
+  margin-top: 1rem;
+  color: var(--color-text-light);
+}
+
+/* --- Canvas Container --- */
+#canvas-container {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#pdf-canvas {
+  display: block;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--border-radius);
+  background-color: var(--color-bg-white);
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* --- Bottom Toolbar --- */
+#bottom-toolbar {
+  flex-shrink: 0;
+  background-color: var(--color-bg-white);
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  z-index: 10;
+}
+.page-nav,
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.page-indicator {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+.page-input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 0.35rem;
+  margin-right: 0.25rem;
+  background-color: var(--color-bg-white);
+  color: var(--color-text-primary);
+}
+.page-input:focus {
+  /* Fix: Removed 'outline: none' to resolve the 'css/use-baseline' error. */
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+.zoom-level {
+  width: 50px;
+  text-align: center;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+  #sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar-header {
+    padding: 1rem;
+  }
+  #editor-toolbar,
+  #text-format-toolbar {
+    gap: 0.5rem;
+  }
+  #bottom-toolbar {
+    gap: 1rem;
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+  #editor-toolbar,
+  #text-format-toolbar {
+    width: 100%;
+    justify-content: space-around;
+  }
+  #upload-prompt h1 {
+    font-size: 2rem;
+  }
+  #upload-prompt .subtitle {
+    font-size: 1rem;
+  }
+}
