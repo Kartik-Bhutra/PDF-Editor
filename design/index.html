@@ -9,6 +9,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --color-primary: #3b82f6;
+            --color-primary-hover: #2563eb;
+            --color-secondary: #10b981;
+            --color-secondary-hover: #059669;
+            --color-text-primary: #1f2937;
+            --color-text-secondary: #4b5563;
+            --color-text-light: #6b7280;
+            --color-bg-light: #f8f9fa;
+            --color-bg-medium: #f3f4f6;
+            --color-bg-white: #ffffff;
+            --color-border: #e5e7eb;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 4px 12px rgba(0,0,0,0.15);
+            --border-radius: 0.5rem;
+        }
+
         /* --- Basic Reset & Global Styles --- */
         * {
             margin: 0;
@@ -18,13 +36,15 @@
 
         html, body {
             height: 100%;
-            overflow: hidden;
+            overflow: hidden; 
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; /* Lighter, cleaner background */
-            color: #1f2937;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--color-bg-light);
+            color: var(--color-text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         /* --- Utility Classes --- */
@@ -47,12 +67,12 @@
 
         /* --- Header & Toolbar --- */
         .toolbar-header {
-            background-color: #ffffff;
+            background-color: var(--color-bg-white);
             padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
             z-index: 10;
             flex-shrink: 0;
             flex-wrap: wrap;
@@ -63,12 +83,14 @@
             display: flex;
             align-items: center;
             gap: 1.5rem;
+            /* --- Change: Added flex-shrink to prevent this from being squished on small screens. --- */
+            flex-shrink: 0;
         }
 
         .toolbar-header h1 {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #374151;
+            color: var(--color-text-secondary);
         }
 
         #editor-toolbar {
@@ -82,7 +104,7 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0 0.5rem;
-            border-right: 1px solid #e5e7eb;
+            border-right: 1px solid var(--color-border);
         }
         .tool-group:last-child {
             border-right: none;
@@ -93,63 +115,121 @@
         .btn {
             padding: 0.6rem 1.2rem;
             border: none;
-            border-radius: 0.5rem;
+            border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: 500;
-            transition: all 0.2s ease-in-out;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             display: inline-flex;
             align-items: center;
             justify-content: center;
         }
 
+        .btn:focus-visible, .tool-btn:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
         .btn-primary {
-            background-color: #3b82f6;
-            color: white;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            background-color: var(--color-primary);
+            color: var(--color-bg-white);
+            box-shadow: var(--shadow-sm);
         }
         .btn-primary:hover {
-            background-color: #2563eb;
+            background-color: var(--color-primary-hover);
             transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-secondary {
-            background-color: #10b981;
-            color: white;
+            background-color: var(--color-secondary);
+            color: var(--color-bg-white);
         }
         .btn-secondary:hover {
-            background-color: #059669;
+            background-color: var(--color-secondary-hover);
             transform: translateY(-1px);
         }
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .tool-btn {
             background-color: transparent;
             padding: 0.6rem;
-            border-radius: 0.5rem;
+            border-radius: var(--border-radius);
             border: 1px solid transparent;
+            transition: background-color 0.2s ease-in-out;
         }
         .tool-btn:hover {
-            background-color: #f3f4f6;
+            background-color: var(--color-bg-medium);
         }
         .tool-btn.active {
-            background-color: #e5e7eb;
+            background-color: var(--color-primary);
             box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
         }
         .tool-btn svg {
             width: 24px;
             height: 24px;
-            color: #4b5563;
+            color: var(--color-text-secondary);
+        }
+        .tool-btn.active svg {
+            color: var(--color-bg-white);
+        }
+        
+        /* --- Change: Added styles for the new text formatting toolbar and its controls. --- */
+        #text-format-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .format-control {
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 0.4rem 0.6rem;
+            background-color: var(--color-bg-white);
+            color: var(--color-text-primary);
+            font-family: inherit;
+            font-size: 0.875rem;
+        }
+        .format-control:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+        }
+        #font-family-select {
+            width: 120px; /* Give a default width */
+        }
+        #font-size-input {
+            width: 60px; /* Give a default width */
+        }
+        /* Style for the color input */
+        #text-color-input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+        #text-color-input::-webkit-color-swatch-wrapper {
+            padding: 0;
+            border-radius: var(--border-radius);
+        }
+        #text-color-input::-webkit-color-swatch {
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
         }
 
         /* --- Sidebar --- */
         #sidebar {
             width: 250px;
-            background-color: #ffffff;
-            border-right: 1px solid #e5e7eb;
+            background-color: var(--color-bg-white);
+            border-right: 1px solid var(--color-border);
             padding: 1.5rem;
             overflow-y: auto;
             flex-shrink: 0;
@@ -163,7 +243,7 @@
             justify-content: center;
             padding: 2rem;
             overflow: auto;
-            background-color: #f3f4f6;
+            background-color: var(--color-bg-medium);
         }
 
         /* --- New Upload Prompt --- */
@@ -178,25 +258,22 @@
         #upload-prompt h1 {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #1f2937;
+            color: var(--color-text-primary);
         }
         #upload-prompt .subtitle {
             font-size: 1.125rem;
-            color: #6b7280;
+            color: var(--color-text-light);
             max-width: 450px;
             margin: 1rem 0 2rem 0;
+            line-height: 1.6;
         }
-        #upload-prompt .btn-upload {
-            background-color: #ef4444; /* Red color */
+        #upload-prompt .btn-primary {
             padding: 0.8rem 2rem;
             font-size: 1.125rem;
         }
-        #upload-prompt .btn-upload:hover {
-            background-color: #dc2626;
-        }
         #upload-prompt .drop-text {
             margin-top: 1rem;
-            color: #6b7280;
+            color: var(--color-text-light);
         }
 
         /* --- Canvas Container --- */
@@ -210,9 +287,9 @@
         
         #pdf-canvas {
             display: block;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 0.25rem;
-            background-color: white;
+            box-shadow: var(--shadow-lg);
+            border-radius: var(--border-radius);
+            background-color: var(--color-bg-white);
             max-width: 100%;
             max-height: 100%;
             width: auto;
@@ -223,7 +300,7 @@
         /* --- Bottom Toolbar --- */
         #bottom-toolbar {
             flex-shrink: 0;
-            background-color: #ffffff;
+            background-color: var(--color-bg-white);
             padding: 0.5rem 1.5rem;
             box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
             display: flex;
@@ -240,25 +317,43 @@
         .page-indicator {
             display: flex;
             align-items: center;
+            color: var(--color-text-secondary);
         }
         .page-input {
             width: 40px;
             text-align: center;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            padding: 0.25rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 0.35rem; 
             margin-right: 0.25rem;
+            background-color: var(--color-bg-white);
+            color: var(--color-text-primary);
+        }
+        .page-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
         }
         .zoom-level {
             width: 50px;
             text-align: center;
             font-weight: 500;
+            color: var(--color-text-secondary);
         }
 
         /* --- Responsive Design --- */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             #sidebar {
                 display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .toolbar-header {
+                padding: 1rem;
+            }
+             #editor-toolbar, #text-format-toolbar {
+                gap: 0.5rem;
             }
             #bottom-toolbar {
                 gap: 1rem;
@@ -267,10 +362,11 @@
         }
         
         @media (max-width: 640px) {
-            .toolbar-header {
-                padding: 0.75rem;
+            .header-left {
+                width: 100%;
+                justify-content: space-between;
             }
-            #editor-toolbar {
+            #editor-toolbar, #text-format-toolbar {
                 width: 100%;
                 justify-content: space-around;
             }
@@ -281,47 +377,63 @@
                 font-size: 1rem;
             }
         }
-
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Toolbar -->
         <header class="toolbar-header">
             <div class="header-left">
                 <h1>PDF Editor</h1>
-                <!-- This button is always visible for the initial action -->
-                <button class="btn btn-primary hidden" title="Select a PDF file from your computer">Load New PDF</button>
+                <button class="btn btn-primary hidden" title="Select a new PDF file">Load New PDF</button>
             </div>
             
-            <!-- This toolbar is hidden by default and appears after upload -->
             <div id="editor-toolbar" class="hidden">
                 <div class="tool-group">
-                    <button class="tool-btn active" title="Select Tool"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.494 13.222a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06l-4.25-4.25a.75.75 0 010-1.06z" /><path fill-rule="evenodd" d="M10.5 3a7.5 7.5 0 100 15 7.5 7.5 0 000-15zM4.5 10.5a6 6 0 1112 0 6 6 0 01-12 0z" clip-rule="evenodd" /></svg></button>
-                    <button class="tool-btn" title="Add Text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6.1H3"></path><path d="M21 12.1H3"></path><path d="M15.1 18.1H3"></path></svg></button>
-                    <button class="tool-btn" title="Whiteout/Remove Content"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22h6a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v10"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><rect x="2" y="13" width="8" height="5" rx="1"></rect><path d="M2 13v-2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                    <button class="tool-btn active" title="Select & Move"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path><path d="M13 13l6 6"></path></svg></button>
+                    <button class="tool-btn" title="Add Text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg></button>
+                    <button class="tool-btn" title="Erase/Whiteout"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a2.1 2.1 0 0 0-2.97 0L7.85 12.15a2.1 2.1 0 0 0 0 2.97l2.97 2.97a2.1 2.1 0 0 0 2.97 0l9.61-9.61a2.1 2.1 0 0 0 0-2.97z"></path><path d="M2 22l5.5-5.5"></path></svg></button>
                 </div>
                 <div class="tool-group">
-                    <button class="tool-btn" title="Undo Last Action" disabled><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"></path><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l-3 2.7"></path></svg></button>
-                    <button class="tool-btn" title="Redo Last Action" disabled><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17v-6h6"></path><path d="M21 7a9 9 0 0 1-9 9 9 9 0 0 1-6-2.3l3-2.7"></path></svg></button>
+                    <button class="tool-btn" title="Undo Last Action" disabled><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"></path><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l-3 2.7"></path></svg></button>
+                    <button class="tool-btn" title="Redo Last Action" disabled><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17v-6h6"></path><path d="M21 7a9 9 0 0 1-9 9 9 9 0 0 1-6-2.3l3-2.7"></path></svg></button>
                 </div>
                 <button class="btn btn-secondary" title="Save and download the edited PDF" disabled>Download</button>
             </div>
+            
+            <div id="text-format-toolbar" class="hidden">
+                <div class="tool-group">
+                    <select id="font-family-select" class="format-control" title="Font Family">
+                        <option>Arial</option>
+                        <option>Verdana</option>
+                        <option>Times New Roman</option>
+                        <option>Courier New</option>
+                        <option>Georgia</option>
+                    </select>
+                    <input type="number" id="font-size-input" class="format-control" value="12" title="Font Size">
+                </div>
+                <div class="tool-group">
+                    <button class="tool-btn" title="Bold"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path></svg></button>
+                    <button class="tool-btn" title="Italic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="4" x2="10" y2="4"></line><line x1="14" y1="20" x2="5" y2="20"></line><line x1="15" y1="4" x2="9" y2="20"></line></svg></button>
+                    <button class="tool-btn" title="Underline"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"></path><line x1="4" y1="21" x2="20" y2="21"></line></svg></button>
+                    <input type="color" id="text-color-input" class="format-control" value="#000000" title="Text Color">
+                </div>
+            </div>
+
         </header>
 
         <div class="main-content-area">
             <aside id="sidebar" class="hidden"></aside>
             <main id="main-content">
                  <div id="upload-prompt">
-                    <h1>PDF Editor</h1>
-                    <p class="subtitle">Edit PDF by adding text, shapes, comments and highlights. Your secure and simple tool to edit PDF.</p>
-                    <button class="btn btn-primary btn-upload">Select PDF file</button>
-                    <p class="drop-text">or drop PDF here</p>
+                     <h1>PDF Editor</h1>
+                     <p class="subtitle">Edit PDF documents by adding text, erasing content, and more. Secure, simple, and entirely in your browser.</p>
+                     <button class="btn btn-primary">Select PDF file</button>
+                     <p class="drop-text">or drop PDF here</p>
                  </div>
                  <div id="canvas-container" class="hidden">
-                    <canvas id="pdf-canvas"></canvas>
-                </div>
+                     <canvas id="pdf-canvas"></canvas>
+                 </div>
             </main>
         </div>
 
