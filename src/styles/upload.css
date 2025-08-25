@@ -1,0 +1,100 @@
+.upload-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.upload-container {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  padding: 20px;
+}
+
+.upload-container > h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.upload-container > p {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.5;
+}
+
+.upload-zone {
+  padding: 2.5rem;
+  border: 2px dashed #e6e6e6;
+  border-radius: 12px;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.upload-zone:hover {
+  border-color: #ff4444;
+  background: #fff8f8;
+}
+
+.upload-btn {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.125rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  transition: background 0.3s ease;
+}
+
+.upload-btn:hover {
+  background: #ff2222;
+}
+
+.upload-icons {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 1rem;
+  color: #666;
+}
+
+.drag-text {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .upload-container {
+    padding: 1rem;
+  }
+
+  .upload-zone {
+    padding: 1.5rem 1rem;
+  }
+
+  .upload-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .upload-icons {
+    display: none;
+  }
+}
