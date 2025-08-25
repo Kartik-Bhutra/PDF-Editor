@@ -3,29 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/style.css" />
     <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script src="src/script.ts" defer></script>
     <title>PDF Editor</title>
   </head>
   <body>
-    <div class="upload-page">
-      <div class="upload-container">
+    <div id="upload-page">
+      <div id="upload-container">
         <h1>PDF Editor</h1>
         <p>
           Edit PDF by adding text, shapes, comments and highlights. Your secure and simple tool to
           edit PDF.
         </p>
 
-        <div class="upload-zone">
+        <div id="upload-zone">
           <input type="file" id="file-input" accept=".pdf" hidden />
-          <button class="upload-btn" onclick="document.getElementById('file-input').click()">
-            <i class="fas fa-arrow-up-from-bracket"></i>
+          <button id="upload-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 8l-5-5-5 5M12 4.2v10.3" />
+            </svg>
             Select PDF file
           </button>
-          <p class="drag-text">or drop PDF here</p>
+          <p>or drop PDF here</p>
         </div>
       </div>
     </div>
