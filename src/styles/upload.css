@@ -1,5 +1,8 @@
+@import url("./variables.css");
+
 #upload-page {
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,5 +99,11 @@
 
   .upload-icons {
     display: none;
+  }
+  #upload-prompt h1 {
+    font-size: 2rem;
+  }
+  #upload-prompt .subtitle {
+    font-size: 1rem;
   }
 }

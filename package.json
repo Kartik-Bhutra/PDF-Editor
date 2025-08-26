@@ -34,6 +34,7 @@
     "vite-plugin-electron": "^0.29.0"
   },
   "dependencies": {
-    "pdf-lib": "^1.17.1"
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.4.54"
   }
 }

@@ -3,44 +3,88 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Editor</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/src/style.css" />
-    <script src="src/script.ts" defer></script>
-    <title>PDF Editor</title>
+    <script src="src/script.ts" defer type="module"></script>
   </head>
   <body>
-    <div id="upload-page">
-      <div id="upload-container">
-        <h1>PDF Editor</h1>
-        <p>
-          Edit PDF by adding text, shapes, comments and highlights. Your secure and simple tool to
-          edit PDF.
-        </p>
-
-        <div id="upload-zone">
-          <input type="file" id="file-input" accept=".pdf" hidden />
-          <button id="upload-btn">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 8l-5-5-5 5M12 4.2v10.3" />
-            </svg>
-            Select PDF file
-          </button>
-          <p>or drop PDF here</p>
+    <div class="app-container">
+      <header class="toolbar-header">
+        <div class="header-left">
+          <h1>PDF Editor</h1>
+          <button id="load-new-btn" class="btn btn-primary">Load New PDF</button>
         </div>
+        <div id="editor-toolbar">
+        </div>
+        <div id="text-format-toolbar">
+        </div>
+      </header>
+      <div class="main-content-area">
+        <aside id="sidebar" class="hidden">
+          <h2>Pages</h2>
+          <div id="thumbnail-container"></div>
+        </aside>
+
+        <main id="main-content">
+          <div id="upload-page">
+            <div id="upload-container">
+              <h1>PDF Editor</h1>
+              <p class="subtitle">
+                Edit PDF by adding text, shapes, comments and highlights. Secure and simple.
+              </p>
+              <div id="upload-zone">
+                <input type="file" id="file-input" accept="application/pdf" hidden />
+                <button id="upload-btn" class="btn btn-primary">
+                  Select PDF file
+                </button>
+                <p class="drop-text">or drop PDF here</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="pdf-editor">
+            <div id="canvas-container">
+              <canvas id="pdf-canvas"></canvas>
+            </div>
+          </div>
+        </main>
       </div>
+
+      <footer id="bottom-toolbar">
+        <div class="page-nav">
+          <button id="prev-page-btn" class="tool-btn" title="Previous Page">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="page-indicator">
+            <input type="number" id="page-num-input" value="1" class="page-input" aria-label="Current page" />
+            <span id="total-pages-span">/ 1</span>
+          </div>
+          <button id="next-page-btn" class="tool-btn" title="Next Page">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <div class="zoom-controls">
+          <button id="zoom-out-btn" class="tool-btn" title="Zoom Out">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.25 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <span id="zoom-level">100%</span>
+          <button id="zoom-in-btn" class="tool-btn" title="Zoom In">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" d="M12 5.25a.75.75 0 01.75.75v5.25h5.25a.75.75 0 010 1.5h-5.25v5.25a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </footer>
     </div>
   </body>
 </html>

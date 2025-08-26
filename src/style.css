@@ -1,12 +1,40 @@
-@import url("styles/upload.css");
+/* This file imports all other stylesheets */
 
+@import url("styles/upload.css");
+@import url("styles/render.css");
+@import url("styles/sidebar.css");
+@import url("styles/footer.css");
+@import url("styles/toolbar.css");
+
+/* --- Basic Reset & Global Styles --- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
