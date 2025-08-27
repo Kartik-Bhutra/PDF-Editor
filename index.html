@@ -11,17 +11,26 @@
     <link rel="stylesheet" href="/src/style.css" />
     <script src="src/script.ts" defer type="module"></script>
   </head>
+  <div id="confirm-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Load New PDF?</h2>
+      <p>Are you sure you want to load a new PDF? Unsaved changes will be lost.</p>
+      <div class="modal-actions">
+        <button id="confirm-yes" class="btn btn-danger">Yes</button>
+        <button id="confirm-no" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
   <body>
     <div class="app-container">
       <header class="toolbar-header">
         <div class="header-left">
           <h1>PDF Editor</h1>
           <button id="load-new-btn" class="btn btn-primary">Load New PDF</button>
+          <span id="current-file" class="file-name hidden">(No file loaded)</span>
         </div>
-        <div id="editor-toolbar">
-        </div>
-        <div id="text-format-toolbar">
-        </div>
+        <div id="editor-toolbar"></div>
+        <div id="text-format-toolbar"></div>
       </header>
       <div class="main-content-area">
         <aside id="sidebar" class="hidden">
@@ -38,9 +47,7 @@
               </p>
               <div id="upload-zone">
                 <input type="file" id="file-input" accept="application/pdf" hidden />
-                <button id="upload-btn" class="btn btn-primary">
-                  Select PDF file
-                </button>
+                <button id="upload-btn" class="btn btn-primary">Select PDF file</button>
                 <p class="drop-text">or drop PDF here</p>
               </div>
             </div>
@@ -58,29 +65,61 @@
         <div class="page-nav">
           <button id="prev-page-btn" class="tool-btn" title="Previous Page">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+              <path
+                fill-rule="evenodd"
+                d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                clip-rule="evenodd"
+              />
             </svg>
           </button>
           <div class="page-indicator">
-            <input type="number" id="page-num-input" value="1" class="page-input" aria-label="Current page" />
+            <input
+              type="number"
+              id="page-num-input"
+              value="1"
+              class="page-input"
+              aria-label="Current page"
+            />
             <span id="total-pages-span">/ 1</span>
           </div>
           <button id="next-page-btn" class="tool-btn" title="Next Page">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
+              <path
+                fill-rule="evenodd"
+                d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+                clip-rule="evenodd"
+              />
             </svg>
           </button>
         </div>
         <div class="zoom-controls">
           <button id="zoom-out-btn" class="tool-btn" title="Zoom Out">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.25 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+              <path
+                fill-rule="evenodd"
+                d="M5.25 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75z"
+                clip-rule="evenodd"
+              />
             </svg>
           </button>
-          <span id="zoom-level">100%</span>
+          <input
+            type="number"
+            id="zoom-level"
+            class="zoom-input"
+            value="100"
+            min="10"
+            max="1000"
+            step="10"
+            aria-label="Zoom level"
+          />
+          <span>%</span>
           <button id="zoom-in-btn" class="tool-btn" title="Zoom In">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path fill-rule="evenodd" d="M12 5.25a.75.75 0 01.75.75v5.25h5.25a.75.75 0 010 1.5h-5.25v5.25a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z" clip-rule="evenodd" />
+              <path
+                fill-rule="evenodd"
+                d="M12 5.25a.75.75 0 01.75.75v5.25h5.25a.75.75 0 010 1.5h-5.25v5.25a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z"
+                clip-rule="evenodd"
+              />
             </svg>
           </button>
         </div>

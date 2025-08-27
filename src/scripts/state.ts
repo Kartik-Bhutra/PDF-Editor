@@ -14,13 +14,20 @@ export const state: AppState = {
   pdfDoc: null,
   currentPageNum: 1,
   totalPages: 0,
-  zoomScale: 1.5,
+  zoomScale: 1,
 };
 
 export const setPdfDoc = (pdfDoc: pdfjsLib.PDFDocumentProxy) => {
   state.pdfDoc = pdfDoc;
   state.totalPages = pdfDoc.numPages;
   state.currentPageNum = 1;
+};
+
+export const removePdfDoc = () => {
+  state.pdfDoc = null;
+  state.totalPages = 0;
+  state.currentPageNum = 1;
+  state.zoomScale = 1;
 };
 
 export const setCurrentPageNum = (pageNum: number) => {

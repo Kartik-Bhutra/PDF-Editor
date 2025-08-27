@@ -25,7 +25,7 @@
 .page-input {
   /* CHANGE: Increased width from 40px to 50px */
   /* This provides more space to prevent the page number from being cut off. */
-  width: 50px;
+  width: 80px;
   text-align: center;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
@@ -33,7 +33,21 @@
   margin-right: 0.25rem;
   background-color: var(--color-bg-white);
   color: var(--color-text-primary);
+  font-size: large;
 }
+
+#zoom-level {
+  width: 80px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 0.35rem;
+  font-size: large;
+  margin-right: 0.25rem;
+  background-color: var(--color-bg-white);
+  color: var(--color-text-primary);
+}
+
 .page-input:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);

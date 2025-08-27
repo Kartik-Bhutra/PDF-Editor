@@ -67,6 +67,9 @@ export const loadPDF = async (file: File) => {
     const typedarray = new Uint8Array(this.result as ArrayBuffer);
     const pdf = await pdfjsLib.getDocument(typedarray).promise;
 
+    const canvasContainer = document.getElementById("canvas-container") as HTMLDivElement;
+    canvasContainer.style.overflow = "auto";
+
     setPdfDoc(pdf);
     await renderThumbnails();
     await renderPage(1);
